@@ -1,3 +1,274 @@
-.testing {
-  width: percentage(5/7);
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600');
+
+// Variables
+// --------------------
+
+$font-base-family: 'Source Sans Pro', sans-serif;
+$primary-color-blue-navy: #0F2B4C;
+$primary-color-blue-aqua: #07ADDC;
+$primary-color-blue-ocean: #2F80C2;
+$primary-color-blue-sky: #88C7E8;
+$primary-color-blue-light: #e8f7fe;
+$secondary-color-orange: #faaf3f;
+$secondary-color-orange-sun: #facc15;
+$secondary-color-green: #8bc53f;
+$secondary-color-red: #d3385c;
+$secondary-color-grey: #929497;
+$secondary-color-purple: #7B3F9F;
+// Media Query
+$xlarge-break : "only screen and (max-width : 1199px)";
+$large-break : "only screen and (max-width : 991px)";
+$medium-break : "only screen and (max-width : 767px)";
+$small-break : "only screen and (max-width : 479px)";
+$min-medium : "only screen and (min-width : 768px)";
+$min-large : "only screen and (min-width : 992px)";
+$min-xlarge : "only screen and (min-width : 1200px)";
+
+// Mixins
+//-----------------------
+// box-sizing
+@mixin box-sizing {
+  box-sizing: border-box;
+}
+
+// Transitions
+@mixin transition{
+  -webkit-transition: all .25s ease-in-out 0s;
+  transition: all .25s ease-in-out 0s;
+}
+
+html{
+  position: relative;
+  &:before{
+    content: '';
+    display: block;
+    width: 8px;
+    height: 100%;
+    position: fixed;
+    background-color: $primary-color-blue-aqua;
+  }
+}
+body{
+  font-family: $font-base-family;
+  color: #111;
+  background:#efefef;
+  font-weight: 300;
+  font-size: 16px;
+}
+*{
+  box-sizing: border-box;
+}
+div{
+  display: block;
+}
+h1,h2,h3,h4,h5{
+  margin-top:0;
+  font-weight: 600;
+}
+p{
+  margin-top:0;
+}
+.container{
+  width:940px;
+  padding:0 10px;
+  margin: 30px auto;
+  display: table;
+}
+.row{
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.half-width{
+  width: 50%;
+  float: left;
+  padding:0 10px;
+}
+.full-width{
+  width: 100%;
+  padding:0 10px;
+  float: left;
+}
+.page-title{
+  font-weight: 300;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+.page-description{
+  color:$secondary-color-grey;
+  font-size: 16px;
+  font-weight: 300;
+  margin-bottom: 30px;
+  display: block;
+}
+.card{
+  margin-bottom: 20px;
+  float: left;
+  &.full-card{
+    width:100%;
+  }
+  &.half-card{
+    width:50%;
+  }
+  .inner-card{
+    background: #fff;
+    box-shadow: 0 0 1px rgba(#000, .2);
+    width: 100%;
+    float: left;
+    padding:20px;
+
+  }
+}
+//gauge
+.gauge-wrapper{
+  width:52%;
+  float: left;
+  padding-right:0px;
+}
+.summary-chart{
+  width: 380px;
+  list-style: none;
+  margin-top: 40px;
+  margin-right: 20px;
+  padding:0;
+  float: right;
+  color: $secondary-color-grey;
+  li{
+    border-bottom:1px solid #eee;
+    padding-bottom:10px;
+    margin-bottom: 10px;
+    .title{
+      position: relative;
+      width:160px;
+      display: inline-block;
+      padding-right: 18px;
+      // &:after{
+      //   content: ':';
+      //   position: absolute;
+      //   right:6px;
+      //   top:0;
+      //   display: block;
+      // }
+    }
+    .desc{
+      font-weight: 600;
+      color: #111;
+    }
+  }
+}
+
+// chart
+.chart-info{
+  width: 100%;
+  padding-left: 80px;
+  .chart-title{
+    margin-bottom: 5px;
+  }
+  .mean, .value, .dev{
+    width: 80px;
+    display: inline-block;
+    margin-right: 10px;
+    padding-right: 10px;
+    position: relative;
+    color: $secondary-color-grey;
+    &:after{
+      content: ':';
+      position: absolute;
+      right: 0;
+      top: 0;
+      display: block;
+    }
+  }
+  .desc{
+    display: inline-block;
+    color: $secondary-color-grey;
+  }
+}
+.chart{
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+  margin-bottom: 20px;
+  float: left;
+  width: 100%;
+  position: relative;
+  &:after{
+    content:'';
+    position: absolute;
+    bottom: 0;
+    left:80px;
+    width:calc(100% - 160px);
+    height: 1px;
+    background-color: #dfdfdf;
+  }
+  li{
+    width:100%;
+    position: relative;
+    padding-left: 80px;
+    margin-bottom: 0;
+    padding-right: 80px;
+    min-height: 30px;
+    .info{
+      position: absolute;
+      left: 0;
+      width: 80px;
+      height: 30px;
+      line-height: 30px;
+      text-align: right;
+      padding-right:10px;
+      &:after{
+        content:'';
+        position: absolute;
+        top:0;
+        right:0;
+        width: 1px;
+        height: 100%;
+        background-color: #dfdfdf;
+      }
+    }
+    .bar{
+      width:100%;
+      height: 20px;
+      margin: 5px 0 5px -1px;
+      border:1px solid rgba($secondary-color-grey, .4);
+      background-color: rgba($secondary-color-grey, .1);
+      float: left;
+      @include transition;
+      &.blue{
+        border-color: rgba($primary-color-blue-aqua, .6);
+        background-color: rgba($primary-color-blue-aqua, .2);
+      }
+      &.orange{
+        border-color: rgba($secondary-color-orange, .6);
+        background-color: rgba($secondary-color-orange, .2);
+      }
+      &.green{
+        border-color: rgba($secondary-color-green, .6);
+        background-color: rgba($secondary-color-green, .2);
+      }
+      &.red{
+        border-color: rgba($secondary-color-red, .6);
+        background-color: rgba($secondary-color-red, .2);
+      }
+      &.purple{
+        border-color: rgba($secondary-color-purple, .6);
+        background-color: rgba($secondary-color-purple, .2);
+      }
+    }
+    .precentage{
+      position: absolute;
+      right: 0;
+      width: 80px;
+      height: 30px;
+      line-height: 30px;
+      text-align: left;
+      padding-left:10px;
+      font-weight: 400;
+    }
+    &:last-child{
+      height: 35px;
+      .info{
+        height: 35px;
+      }
+    }
+  }
 }

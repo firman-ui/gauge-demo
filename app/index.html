@@ -3,21 +3,313 @@
 
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>BayesiaLab Gauge Value</title>
   <!--build:css css/styles.min.css-->
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/print.css">
   <!--endbuild-->
-</head>
-
-<body>
-  This is a gulp starter!
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <!--build:js js/main.min.js -->
-  <script src="js/lib/a-library.js"></script>
-  <script src="js/lib/another-library.js"></script>
   <script src="js/main.js"></script>
   <!-- endbuild -->
+</head>
+<body>
+  <div class="container">
+    <h1 class="page-title">BayesiaLab Gauge Value</h1>
+    <p>
+      <span class="page-description">Click gauge wheel to simulate the values</span>
+    </p>
+    <div class="row">
+      <div class="full-width">
+        <div class="card full-card">
+          <div class="inner-card">
+            <div class="gauge-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-2 -2 504 252" id="menu" style="transform-origin: 50% 50% 0px; transform: translate3d(0px, 0px, 0px); touch-action: none; user-select: none;">
+                <style>#menu{width:420px;display:block;margin:20px 10px;}a{cursor:pointer;outline:none;}.item .sector{transition:all .3s linear;fill:#ddd;stroke:#fff; opacity: .5;}.item .sector.zero{fill:#07ADDC;}.item .sector.fifty{fill:#8bc53f;}.item .sector.seventy{fill:#faaf3f;}.item .sector.hundred{fill:#d3385c;}.item:hover .sector,.item:focus .sector{opacity:1;}.menu-trigger{fill:#fff;pointer-events:auto;}symbol{overflow:visible;}</style>
+                <g id="itemsContainer">
+                  <a class="item" id="hundred" role="link" tabindex="0" xlink:href="#" xlink:title="" xlink:target="_parent" transform="matrix(1,0,0,1,0,0)" data-svg-origin="250 250" style="">
+                    <path fill="none" stroke="#111" stroke-width="1" class="sector hundred" d="M250,250 l250,0 A250,250 0 0,0 426.7766952966369,73.22330470336314 z"></path><use xlink:href="#icon-1" width="40" height="40" x="387.05950927734375" y="164.94381713867188" transform="rotate(67.5 407.05950927734375 184.94381713867188)"></use>
+                  </a>
+                  <a class="item" id="seventy" role="link" tabindex="0" xlink:href="#" xlink:title="" xlink:target="_parent" transform="matrix(0.7071,-0.7071,0.7071,0.7071,-103.55339059327378,249.99999999999997)" data-svg-origin="250 250" style="">
+                    <path fill="none" stroke="#111" stroke-width="1" class="sector seventy" d="M250,250 l250,0 A250,250 0 0,0 426.7766952966369,73.22330470336314 z"></path><use xlink:href="#icon-2" width="40" height="40" x="387.05950927734375" y="164.94381713867188" transform="rotate(67.5 407.05950927734375 184.94381713867188)"></use>
+                  </a>
+                  <a class="item" id="fifty" role="link" tabindex="0" xlink:href="#" xlink:title="" xlink:target="_parent" transform="matrix(0,-1,1,0,0,500)" data-svg-origin="250 250" style="">
+                    <path fill="none" stroke="#111" stroke-width="1" class="sector fifty" d="M250,250 l250,0 A250,250 0 0,0 426.7766952966369,73.22330470336314 z"></path><use xlink:href="#icon-3" width="40" height="40" x="387.05950927734375" y="164.94381713867188" transform="rotate(67.5 407.05950927734375 184.94381713867188)"></use>
+                  </a>
+                  <a class="item" id="zero" role="link" tabindex="0" xlink:href="#" xlink:title="" xlink:target="_parent" transform="matrix(-0.7071,-0.7071,0.7071,-0.7071,249.99999999999997,603.5533905932738)" data-svg-origin="250 250" style="">
+                    <path fill="none" stroke="#111" stroke-width="1" class="sector zero" d="M250,250 l250,0 A250,250 0 0,0 426.7766952966369,73.22330470336314 z"></path><use xlink:href="#icon-4" width="40" height="40" x="387.05950927734375" y="164.94381713867188" transform="rotate(67.5 407.05950927734375 184.94381713867188)"></use>
+                  </a>
+                </g>
+                <g id="trigger" class="trigger menu-trigger" role="button">
+                  <circle cx="250" cy="250" r="232"></circle>
+                  <text id="sector-value" text-anchor="middle" x="250" y="220" fill="#888" font-size="4em" font-weight="600">0</text>
+                </g>
+              </svg>
+            </div>
+            <ul class="summary-chart">
+              <li>
+                <span class="title">Joint Probability</span>
+                <span class="desc" id="joint">99.00%</span>
+              </li>
+              <li>
+                <span class="title">Log-Likelihood</span>
+                <span class="desc" id="log">0.01</span>
+              </li>
+              <li>
+                <span class="title">Cases</span>
+                <span class="desc" id="cases">11.313</span>
+              </li>
+              <li>
+                <span class="title">Total Value</span>
+                <span class="desc" id="total">105,787,554.942</span>
+              </li>
+              <li>
+                <span class="title">Mean Value</span>
+                <span class="desc" id="mean">3,305,861.092</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- half grid -->
+      <div class="half-width">
+        <!-- chart 1 -->
+        <div class="card full-card">
+          <div class="inner-card">
+            <div class="chart-info">
+              <h4 class="chart-title">Outlier Flag</h4>
+            </div>
+            <ul class="chart" id="chart1">
+              <li>
+                <span class="info">0</span>
+                <span class="bar blue" id="chart1-bar-one"></span>
+                <span class="precentage" id="chart1-val-one">100%</span>
+              </li>
+              <li>
+                <span class="info">1</span>
+                <span class="bar green" id="chart1-bar-two" style="width:0%"></span>
+                <span class="precentage" id="chart1-val-two">0.00%</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- chart 2 -->
+        <div class="card full-card">
+          <div class="inner-card">
+            <div class="chart-info">
+              <h4 class="chart-title">TRF_AMT_IN_ACCTIDFROM_7D</h4>
+            </div>
+            <ul class="chart" id="chart2">
+              <li>
+                <span class="info"><=0</span>
+                <span class="bar blue" id="chart2-bar-one"style="width:98.13%"></span>
+                <span class="precentage" id="chart2-val-one">98.13%</span>
+              </li>
+              <li>
+                <span class="info"><=897649</span>
+                <span class="bar green" id="chart2-bar-two"style="width:1.45%"></span>
+                <span class="precentage" id="chart2-val-two">1.45%</span>
+              </li>
+              <li>
+                <span class="info">>897649</span>
+                <span class="bar orange" id="chart2-bar-three"style="width:0.42%"></span>
+                <span class="precentage" id="chart2-val-three">0.42%</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- chart 3 -->
+        <div class="card full-card">
+          <div class="inner-card">
+            <div class="chart-info">
+              <h4 class="chart-title">AVG_AMT_TRF_1D</h4>
+            </div>
+            <ul class="chart" id="chart3">
+              <li>
+                <span class="info"><=0</span>
+                <span class="bar blue" id="chart3-bar-one"style="width:92.77%"></span>
+                <span class="precentage" id="chart3-val-one">92.77%</span>
+              </li>
+              <li>
+                <span class="info"><=565163</span>
+                <span class="bar green" id="chart3-bar-two" style="width:4.02%"></span>
+                <span class="precentage" id="chart3-val-two">4.02%</span>
+              </li>
+              <li>
+                <span class="info"><=1495000</span>
+                <span class="bar orange" id="chart3-bar-three" style="width:0.93%"></span>
+                <span class="precentage" id="chart3-val-three">0.93%</span>
+              </li>
+              <li>
+                <span class="info"><=3750000</span>
+                <span class="bar purple" id="chart3-bar-four"style="width:0.42%"></span>
+                <span class="precentage" id="chart3-val-four">0.42%</span>
+              </li>
+              <li>
+                <span class="info">>3750000</span>
+                <span class="bar red"  id="chart3-bar-five"style="width:0.71%"></span>
+                <span class="precentage" id="chart3-val-five">0.71%</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- chart 4 -->
+        <div class="card full-card">
+          <div class="inner-card">
+            <div class="chart-info">
+              <h4 class="chart-title">TRF_AMT_IN_ACCTIDFROM_1H</h4>
+            </div>
+            <ul class="chart">
+              <li>
+                <span class="info"><=500000</span>
+                <span class="bar blue" id="chart4-bar-one"style="width:99.91%"></span>
+                <span class="precentage" id="chart4-val-one">99.91%</span>
+              </li>
+              <li>
+                <span class="info"><=4500000</span>
+                <span class="bar green" id="chart4-bar-two"style="width:0.09%"></span>
+                <span class="precentage" id="chart4-val-two">0.09%</span>
+              </li>
+              <li>
+                <span class="info"><=8500000</span>
+                <span class="bar orange" id="chart4-bar-three"style="width:0.00%"></span>
+                <span class="precentage" id="chart4-val-three">0.00%</span>
+              </li>
+              <li>
+                <span class="info"><=26500000</span>
+                <span class="bar purple" id="chart4-bar-four" style="width:0.00%"></span>
+                <span class="precentage" id="chart4-val-four">0.00%</span>
+              </li>
+              <li>
+                <span class="info">>26500000</span>
+                <span class="bar red" id="chart4-bar-five" style="width:0.00%"></span>
+                <span class="precentage" id="chart4-val-five">0.00%</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- half grid 2 -->
+      <div class="half-width">
+        <!-- chart 5 -->
+        <div class="card full-card">
+          <div class="inner-card">
+            <div class="chart-info">
+              <h4 class="chart-title">AMTIDR_TRF</h4>
+            </div>
+            <ul class="chart" id="chart5">
+              <li>
+                <span class="info"><=0</span>
+                <span class="bar blue" id="chart5-bar-one"style="width:67.19%"></span>
+                <span class="precentage" id="chart5-val-one">67.19%</span>
+              </li>
+              <li>
+                <span class="info"><=2658000</span>
+                <span class="bar green" id="chart5-bar-two"style="width:27.84%"></span>
+                <span class="precentage" id="chart5-val-two">27.84%</span>
+              </li>
+              <li>
+                <span class="info"><=9200000</span>
+                <span class="bar orange" id="chart5-bar-three" style="width:3.13%"></span>
+                <span class="precentage" id="chart5-val-three">3.13%</span>
+              </li>
+              <li>
+                <span class="info"><=20700000</span>
+                <span class="bar purple" id="chart5-bar-four"style="width:0.98%"></span>
+                <span class="precentage" id="chart5-val-four">0.98%</span>
+              </li>
+              <li>
+                <span class="info">>20700000</span>
+                <span class="bar red" id="chart5-bar-five" style="width:0.86%"></span>
+                <span class="precentage" id="chart5-val-five">0.86%</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- chart 6 -->
+        <div class="card full-card">
+          <div class="inner-card">
+            <div class="chart-info">
+              <h4 class="chart-title">N_INSUF_TRF_7D</h4>
+            </div>
+            <ul class="chart" id="chart6">
+              <li>
+                <span class="info"><=0.035</span>
+                <span class="bar blue" id="chart6-bar-one"style="width:99.47%"></span>
+                <span class="precentage" id="chart6-val-one">99.47%</span>
+              </li>
+              <li>
+                <span class="info"><=1.015</span>
+                <span class="bar green" id="chart6-bar-two"style="width:0.47%"></span>
+                <span class="precentage" id="chart6-val-two">0.47%</span>
+              </li>
+              <li>
+                <span class="info"><=2.065</span>
+                <span class="bar orange" id="chart6-bar-three"style="width:0.04%"></span>
+                <span class="precentage" id="chart6-val-three">0.04%</span>
+              </li>
+              <li>
+                <span class="info"><=3.045</span>
+                <span class="bar purple" id="chart6-bar-four" style="width:0.02%"></span>
+                <span class="precentage" id="chart6-val-four">0.02%</span>
+              </li>
+              <li>
+                <span class="info">>3.045</span>
+                <span class="bar red" id="chart6-bar-five" style="width:0.01%"></span>
+                <span class="precentage" id="chart6-val-five">0.01%</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- chart 7 -->
+        <div class="card full-card">
+          <div class="inner-card">
+            <div class="chart-info">
+              <h4 class="chart-title">N_INSUF_TRF_31D</h4>
+            </div>
+            <ul class="chart">
+              <li>
+                <span class="info"><=0</span>
+                <span class="bar blue" id="chart7-bar-one" style="width:99.76%"></span>
+                <span class="precentage" id="chart7-val-one">99.76%</span>
+              </li>
+              <li>
+                <span class="info"><0</span>
+                <span class="bar green" id="chart7-bar-two" style="width:0.24%"></span>
+                <span class="precentage" id="chart7-val-two">0.24%</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- chart 8 -->
+        <div class="card full-card">
+          <div class="inner-card">
+            <div class="chart-info">
+              <h4 class="chart-title">LAST_STATUS</h4>
+            </div>
+            <ul class="chart" id="chart8">
+              <li>
+                <span class="info">0</span>
+                <span class="bar blue" id="chart8-bar-one" style="width:23.84%"></span>
+                <span class="precentage" id="chart8-val-one">99.76%</span>
+              </li>
+              <li>
+                <span class="info">1</span>
+                <span class="bar green" id="chart7-bar-two" style="width:76.16%"></span>
+                <span class="precentage" id="chart7-val-two">0.24%</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script type="text/javascript">
+
+  </script>
 </body>
 
 </html>
